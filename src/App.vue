@@ -18,6 +18,7 @@
               <input 
               v-model="ticker"
               @keydown.enter="add"
+              @change="filterCoins"
               type="text" 
               name="wallet" 
               id="wallet"
@@ -164,6 +165,12 @@ export default {
 
       this.tickers.push(currentTicker);
       this.ticker = '';
+    },
+
+    filterCoins() {
+      this.coins.forEach(coin => {
+        console.log(coin)
+      });
     },
 
     handleDelete(tickerToRemove) {
