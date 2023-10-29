@@ -167,11 +167,11 @@ export default {
       this.ticker = '';
     },
 
-    filterCoins() {
-      this.coins.forEach(coin => {
-        console.log(coin)
+/*     filterCoins() {
+      this.coins.filter(coin => {
+        //replace + regexp
       });
-    },
+    }, */
 
     handleDelete(tickerToRemove) {
       this.tickers = this.tickers.filter(t => t != tickerToRemove);
