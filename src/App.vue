@@ -18,7 +18,7 @@
               <input 
               v-model="ticker"
               @keydown.enter="add"
-              @change="filterCoins"
+              @input="filterCoins"
               type="text" 
               name="wallet" 
               id="wallet"
@@ -26,11 +26,13 @@
                 placeholder="Например DOGE" />
             </div>
             <div 
-            v-if="coins.length > 0"
+            v-if="tips.length > 0"
             class="flex bg-white shadow-md p-1 rounded-md shadow-md flex-wrap">
               <span
+                v-for="tip in tips"
+                v-bind:key="tip"
                 class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                BTC
+                {{ tip }}
               </span>
             </div>
             <div 
@@ -128,13 +130,13 @@ export default {
       ticker: "",
       tickers: [],
       coins: [],
+      tips: [],
       sel: null,
       graph: [],
     }
   },
 
   created: function() {
-    console.log("Хуйня появилась")
       fetch(`https://min-api.cryptocompare.com/data/all/coinlist?summary=true`)
       .then(response => response.json())
       .then(data => {
@@ -167,11 +169,18 @@ export default {
       this.ticker = '';
     },
 
-/*     filterCoins() {
-      this.coins.filter(coin => {
-        //replace + regexp
-      });
-    }, */
+    filterCoins() {
+      this.tips = []; // Очищает массив
+      let str = this.ticker; // строка по которой проходит проверка
+
+      const tips = (this.coins.filter(s => s.indexOf(str) === 0)).slice(0, 4); //фильтрация и берём только первые 4 элемента массива
+      // console.log(tips);
+
+      // Пушим строки в массив this.tips
+      tips.forEach(tip => { 
+        this.tips.push(tip);
+      })
+    },
 
     handleDelete(tickerToRemove) {
       this.tickers = this.tickers.filter(t => t != tickerToRemove);
