@@ -36,7 +36,7 @@
               </span>
             </div>
             <div 
-            v-if="coins.length > 0"
+            v-if="this.tickers.filter(item => item === this.ticker)"
             class="text-sm text-red-600">Такой тикер уже добавлен</div>
           </div>
         </div>
@@ -171,14 +171,14 @@ export default {
 
     filterCoins() {
       this.tips = []; // Очищает массив
-      let str = this.ticker; // строка по которой проходит проверка
+      let str = (this.ticker).toUpperCase(); // строка по которой проходит проверка(При любом регистре)
 
       const tips = (this.coins.filter(s => s.indexOf(str) === 0)).slice(0, 4); //фильтрация и берём только первые 4 элемента массива
       // console.log(tips);
 
       // Пушим строки в массив this.tips
-      tips.forEach(tip => { 
-        this.tips.push(tip);
+      tips.forEach(tip => {
+        this.ticker.length > 0 ?  this.tips.push(tip) : this.tips = [];
       })
     },
 
