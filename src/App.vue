@@ -31,6 +31,7 @@
               <span
                 v-for="tip in tips"
                 v-bind:key="tip"
+                @click="add"
                 class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
                 {{ tip }}
               </span>
@@ -176,7 +177,7 @@ export default {
       const tips = (this.coins.filter(s => s.indexOf(str) === 0)).slice(0, 4); //фильтрация и берём только первые 4 элемента массива
       // console.log(tips);
 
-      // Пушим строки в массив this.tips
+      // Пушим строки в массив this.tips, если что-то введенно в инпут.
       tips.forEach(tip => {
         this.ticker.length > 0 ?  this.tips.push(tip) : this.tips = [];
       })
