@@ -31,6 +31,7 @@
               <span
                 v-for="tip in tips"
                 v-bind:key="tip"
+                @click="tipToTicker"
                 class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
                 {{ tip }}
               </span>
@@ -148,6 +149,7 @@ export default {
 
   methods: {
     add() {
+
       const currentTicker = {
         name: this.ticker,
         price: "-"
@@ -167,6 +169,17 @@ export default {
 
       this.tickers.push(currentTicker);
       this.ticker = '';
+    },
+
+    tipToTicker(event) {
+        console.log(`Клик в подсказку!`);
+      // `event` is the native DOM events
+      if (event) {
+        console.log(event.target.textContent);
+        this.ticker = event.target.textContent;
+        this.tickers.push(this.ticker);
+        console.log(this.tickers.forEach(item => console.log(item)));
+      }
     },
 
     filterCoins() {
