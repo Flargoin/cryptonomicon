@@ -31,14 +31,16 @@
               <span
                 v-for="tip in tips"
                 v-bind:key="tip"
-                @click="tipToTicker"
+                @click.stop="tipToTicker"
                 class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
                 {{ tip }}
               </span>
             </div>
             <div 
-            v-if="this.tickers.filter(item => item === this.ticker)"
-            class="text-sm text-red-600">Такой тикер уже добавлен</div>
+            v-if="this.tickers.find(item => item.name === this.ticker)"
+            class="text-sm text-red-600">
+            Такой тикер уже добавлен
+            </div>
           </div>
         </div>
         <button 
@@ -70,7 +72,7 @@
             <div
             class="px-4 py-5 sm:p-6 text-center">
               <dt class="text-sm font-medium text-gray-500 truncate">
-                {{ t.name }} - USD
+                {{ t.name.toUpperCase() }} - USD
               </dt>
               <dd class="mt-1 text-3xl font-semibold text-gray-900">
                 {{ t.price }} 
@@ -173,12 +175,12 @@ export default {
 
     tipToTicker(event) {
         console.log(`Клик в подсказку!`);
-      // `event` is the native DOM events
+
       if (event) {
         console.log(event.target.textContent);
         this.ticker = event.target.textContent;
         this.tickers.push(this.ticker);
-        console.log(this.tickers.forEach(item => console.log(item)));
+        // console.log(this.tickers[0]);
       }
     },
 
