@@ -173,11 +173,10 @@ export default {
 
     tipToTicker(event) {
         console.log(`Клик в подсказку!`);
-      // `event` is the native DOM events
       if (event) {
         console.log(event.target.textContent);
         this.ticker = event.target.textContent;
-        this.tickers.push(this.ticker);
+        this.tickers.push(event.target.textContent);
         console.log(this.tickers.forEach(item => console.log(item)));
       }
     },
